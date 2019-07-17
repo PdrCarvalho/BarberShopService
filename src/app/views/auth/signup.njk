@@ -1,6 +1,5 @@
-{%extends "_layouts/auth.njk"%}
-{%block body %}
-<form action="/signup" method="post">
+{%extends "_layouts/auth.njk"%} {%block body %}
+<form action="/signup" method="post" enctype="multipart/form-data">
   <label for="avatar">
     <img src="/images/avatar.svg" height="24" />
   </label>
@@ -17,4 +16,12 @@
   <button type="submit">Criar Conta</button>
   <a href="/">Já Possuo Conta</a>
 </form>
+<script type="text/javascript">
+  var avatarInput = document.getElementById('avatar')
+  var img = document.querySelector('label[for = avatar] img')
+  avatarInput.onchange = function(e) {
+    img.classList.add('preview')
+    img.src = URL.createObjectURL(e.target.files[0])
+  }
+</script>
 {%endblock%}
