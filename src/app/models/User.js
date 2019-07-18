@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     provider: DataTypes.BOOLEAN
   },
   {
+    classMethods: {
+      teste: function () { return true },
+      validatePassword: function (password) { return bcrypt.compare(password, this.password_hash) }
+    },
+    instanceMethods: {
+      validatePassword: function (password) { return bcrypt.compare(password, this.password_hash) }
+    },
     hooks: {
       beforeSave: async user => {
         if (user.password) {
@@ -16,6 +23,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
+
   })
+  // User.instance.teste = function () {
+  //   console.log('teste')
+  // }
+
+  // User.instance.prototype.checkPassword = function (password) {
+  //   return bcrypt.compare(password, this.password_hash)
+  // }
+  // User.checkPassword = (password) => {
+  //   return bcrypt.compare(password, this.password_hash)
+  // }
+  // console.log('retorno da função :' + User.validatePassword('123123'))
   return User
 }
